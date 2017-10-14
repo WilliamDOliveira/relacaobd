@@ -32,6 +32,32 @@ class OneToOneController extends Controller
         echo "<hr>";        
         echo "Location $location->id ";    
         echo "<br>Location $country->name ";   
-        // dd($country); 
     }
-}
+
+    public function oneToOneInsert()
+    {
+        $dataForm = [
+            'name' => 'Russia',
+            'longitude' => '852',
+            'latitude' => '369'
+        ];
+
+        $country = Country::create( $dataForm );
+        //Aqui posso fazer isso de três jeitos
+        // 1)
+        // $dataForm['country_id'] = $country->id; 
+        // $location = Location::create( $dataForm );
+        // 2)
+        // $location = new Location;
+        // $location->latitude = $dataForm['latitude'];
+        // $location->longitude = $dataForm['longitude'];
+        // $location->country_id = $country->id;
+        // $saveLocation = $location->save();
+        // 3)
+        $location = $country->location()->create( $dataForm );
+        echo 'Create';
+
+    }
+
+
+}//Fim Class

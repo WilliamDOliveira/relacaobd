@@ -19,3 +19,9 @@ Route::get('/', function () {
 Route::get('one-to-one' , 'OneToOneController@oneToOne');
 //OneToOne
 Route::get('one-to-one-inverse' , 'OneToOneController@oneToOneInverse');
+//OneToOne
+Route::get('one-to-one-insert' , 'OneToOneController@oneToOneInsert');
+
+
+//OneToMany
+// Route::get('one-to-many' , 'OneToManyController@oneToMany');
