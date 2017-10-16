@@ -23,8 +23,8 @@ class OneToManyController extends Controller
         $countries = Country::where( 'name' , 'LIKE' , "%$keySearch%" )->with('states')->get(); 
         // dd($countries);
 
-        foreach( $countries as $country ){
-            
+        foreach( $countries as $country )
+        {            
             $states = $country->states()->get();//Pego todos os states
             // $states = $country->states()->where('initials','BA')->get();
             echo "";
@@ -58,7 +58,8 @@ class OneToManyController extends Controller
         echo "Pais: $country->name";
     }
 
-    public function onToManyTwo(){
+    public function onToManyTwo()
+    {
         $country = Country::where( 'name' , 'Brasil' )->first();
         echo "<br><hr><b>$country->name</b><br>";
         $states = $country->states;
@@ -70,8 +71,35 @@ class OneToManyController extends Controller
             foreach( $state->cities as $city ){
                 echo "<b>cidade:</b><em> $city->name </em><br>";
             }
-        }
-        
+        }        
     }
 
-}
+    public function onToManyInsert()
+    {
+        //Vincular um estado a um pais
+
+        $dataForm = [//dados formulário Estado Simulação
+            'name'      => 'Amazonas',
+            'initials'  => 'AM'
+        ];
+        //Recupero o pais pelo nome
+        $country = Country::where( 'name' , 'Brasil')->first();
+        //Recupero os estados referentes ao pais e crio um novo estado
+        $insertState = $country->states()->create( $dataForm );
+        dump( $insertState );
+    }
+
+    public function onToManyInsertTwo()
+    {
+        //Vincular um estado a um pais 2 forma
+        $dataForm = [//dados formulário Estado Simulação
+            'name'      => 'Maranhão',
+            'initials'  => 'MA',
+            'country_id'=> '1'
+        ];
+
+        $insertState = State::create( $dataForm );
+        dump($insertState);
+    }
+
+}//EndClass
