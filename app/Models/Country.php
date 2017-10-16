@@ -28,4 +28,10 @@ class Country extends Model
         return $this->hasMany(State::class);
     }
 
+    public function cities()
+    {
+        //Nesse relacionamento eu passo ( Classe que quero os dados, Classe intermediaria );
+        return $this->hasManyThrough(City::class,State::class);
+    }
+
 }
