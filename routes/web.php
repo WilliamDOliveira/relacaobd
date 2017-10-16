@@ -23,5 +23,9 @@ Route::get('one-to-one-inverse' , 'OneToOneController@oneToOneInverse');
 Route::get('one-to-one-insert' , 'OneToOneController@oneToOneInsert');
 
 
-//OneToMany
+//OneToMany [ Um para muitos ] 1 p N 
 Route::get('one-to-many' , 'OneToManyController@oneToMany');
+//OneToMany Inverse [ Muitos para um ] N p 1
+Route::get('many-to-one' , 'OneToManyController@manyToOne');
+//OneToMany Inverse [ Muitos para um ] N p 1
+Route::get('many-to-one-two' , 'OneToManyController@onToManyTwo');
