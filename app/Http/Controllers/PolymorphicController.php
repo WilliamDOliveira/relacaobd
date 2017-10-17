@@ -10,10 +10,33 @@ use App\Models\Commentary;
 
 class PolymorphicController extends Controller
 {
-    //
+    //Recuperando dados atraves de polimorfico
     public function polymorphic(){
+        //Comentarios da cidade
+        // $city = City::where( 'name' , 'São Paulo' )->first();
+        // echo $city->name;
+        // $comments = $city->comments()->get();
+        // foreach( $comments as $comment ){
+        //     echo "<p>$comment->description<p>";
+        // }
 
+        //Comentarios do Estado
+        // $state = State::where( 'name' , 'Acre' )->first();
+        // echo $state->name;
+        // $comments = $state->comments()->get();
+        // foreach( $comments as $comment ){
+        //     echo "<p>$comment->description<p>";
+        // }
+
+        //Comentarios do pais
+        $country = Country::where( 'name' , 'Brasil' )->first();
+        echo $country->name;
+        $comments = $country->comments()->get();
+        foreach( $comments as $comment ){
+            echo "<p>$comment->description<p>";
+        }
     }
+
 
     //Inserindo dados no comentario escolhendo entre cidade estado pais
     public function polymorphicInsert(){
