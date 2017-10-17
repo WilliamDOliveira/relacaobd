@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Company;
 
-// use App\Models\State;
-// use App\Models\Country;
+/*
+* Note que não foi necessario criar o model city_company mas foi criado o migration
+* referente a tabela intermediaria
+*/
 
 class ManyToManyController extends Controller
 {
@@ -31,6 +33,8 @@ class ManyToManyController extends Controller
             echo "<em>$city->name</em><br>";
         }        
     }
+
+    //Vinculando varias cidades a uma empresa
     public function manyToManyInsert()
     {
         $dataForm = [ 1 , 2 , 3 , 4 ];//Recebe as ids referentes as cidades em um form/api/post/etc

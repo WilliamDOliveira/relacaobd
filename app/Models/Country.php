@@ -34,4 +34,10 @@ class Country extends Model
         return $this->hasManyThrough(City::class,State::class);
     }
 
+    public function comments()
+    {
+        //morphMany( ClasseQueEstaFazendoMorph , metodoArmazenaTiposMorphs );
+        return $this->morphMany( Commentary::class , 'commentable' );
+    }
+
 }

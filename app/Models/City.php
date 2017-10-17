@@ -20,4 +20,10 @@ class City extends Model
         return $this->belongsToMany(Company::class,'city_company');
     }
 
+    public function comments()
+    {
+        //morphMany( ClasseQueEstaFazendoMorph , metodoArmazenaTiposMorphs );
+        return $this->morphMany( Commentary::class , 'commentable' );
+    }
+
 }

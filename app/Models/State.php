@@ -20,4 +20,10 @@ class State extends Model
     public function cities(){
         return $this->hasMany( City::class );
     }
+
+    public function comments()
+    {
+        //morphMany( ClasseQueEstaFazendoMorph , metodoArmazenaTiposMorphs );
+        return $this->morphMany( Commentary::class , 'commentable' );
+    }
 }

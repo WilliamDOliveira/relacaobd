@@ -49,8 +49,15 @@ Route::get('one-to-many-insert-two' , 'OneToManyController@onToManyInsertTwo');
 Route::get('has-many-through','HasManyThroughController@hasManyThrough');
 
 /*
-* Has To Many
+* Has To Many N:N
 */
 Route::get( 'many-to-many' , 'ManyToManyController@manyToMany');
 Route::get( 'many-to-many-inverse' , 'ManyToManyController@manyToManyInverse');
 Route::get( 'many-to-many-insert' , 'ManyToManyController@manyToManyInsert');
+
+/*
+* Relation Polymorphic 
+* Um comentario[um tabela] para pais, cidade, estado
+*/
+Route::get( 'polymorphics' , 'PolymorphicController@polymorphic' );
+Route::get( 'polymorphicsInsert' , 'PolymorphicController@polymorphicInsert' );
