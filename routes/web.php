@@ -43,6 +43,14 @@ Route::get('one-to-many-insert-two' , 'OneToManyController@onToManyInsertTwo');
 
 /*
 * Has Many Through
+* pegando os dados de uma tabela sem passar pela intermediaria country>state>city*
 */
 
 Route::get('has-many-through','HasManyThroughController@hasManyThrough');
+
+/*
+* Has To Many
+*/
+Route::get( 'many-to-many' , 'ManyToManyController@manyToMany');
+Route::get( 'many-to-many-inverse' , 'ManyToManyController@manyToManyInverse');
+Route::get( 'many-to-many-insert' , 'ManyToManyController@manyToManyInsert');
