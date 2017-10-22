@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
 
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
         /*
          * Application Service Providers...
          */
