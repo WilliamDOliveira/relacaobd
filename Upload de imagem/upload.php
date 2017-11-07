@@ -34,6 +34,7 @@ use App\Image as Img;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as Image;
 
+
 class ImageController extends Controller
 {
     //
@@ -44,41 +45,49 @@ class ImageController extends Controller
 
     public function store( Request $request ){
 
-        $data =[
-            "name" => $request->all()['name']  ,
-            "path" => $request->all()['path']
-        ];
-
-        $primaryImage = $request->all()['primaryImage'];
-
-        $image = Img::create( $data );
+        // $data =[
+        //     "name" => $request->all()['name']  ,
+        //     "path" => $request->all()['path']
+        // ];
+        
+        // $image = Img::create( $data );
     
-        if ($request->hasFile('primaryImage')) {
-            $image->path_image = $this->saveImage($primaryImage, 1, 'imagem', 250);
-            return $image->path_image; //Retorna a url onde se encontra a imagem
+        if ($request->hasFile('primaryImage')) {//se existir o arquivo faz a função
+            //armazena var file
+            $imageFile = $request->all()['primaryImage'];
+            //options
+            $size = getimagesize( $imageFile );//retorna um array com os atributos da imagem [0] = width [1] = height
+            $width = ($size[0] > 1920 ) ? 1920 : $size[0];//retorna width da imagem, e já ajusta o tamanho maximo para 1920
+            //retorna endereço completo da imagem aonde ela está sendo salva
+            $imageUrl = $this->saveImage($imageFile, 1, 'imagem', $width );
+            return $imageUrl; //Retorna a url onde se encontra a imagem
             // return redirect()->to($image->path_image); // Redireciona para a imagem criada
         }
     }
 
-    public function saveImage($image, $id, $type, $size = 250 )
+    public function saveImage($image, $id, $type, $width = 250 )
     {
         if (!is_null($image))
         {
             $file = $image;
             $extension = $image->getClientOriginalExtension();
+            $extension = $extension == 'jpeg' ? 'jpg' : $extension;//converte jpeg para jpg
+            if( ( $extension != 'jpg') && ( $extension != 'png') ){
+                return 'Formato inválido';
+            }
             $fileName = time() . random_int(100, 999) .'.' . $extension; 
             $destinationPath = public_path('images/'.$type.'/'.$id.'/');
             $url = 'http://'.$_SERVER['HTTP_HOST'].'/images/'.$type.'/'.$id.'/'.$fileName;
             $fullPath = $destinationPath.$fileName;
             if (!file_exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0777, true);
+                File::makeDirectory($destinationPath, 0775, true);
             }
-            $image = Image::make($file)
-                ->resize($size, null, function ($constraint) {
+            $image = Image::make($file)//abre a imagem para poder ediar 
+                ->resize($width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })
-                ->encode('jpg');
-            $image->save($fullPath, 100);
+                ->encode('jpg');//transforma em jpg
+            $image->save($fullPath, 70);//cria imagem nova de acordo com os parametros
             return $url;
         } else {
             // return 'http://'.$_SERVER['HTTP_HOST'].'/images/'.$type.'/placeholder300x300.jpg';
@@ -87,3 +96,4 @@ class ImageController extends Controller
     }
 
 }//@endClass
+
